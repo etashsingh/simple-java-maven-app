@@ -14,6 +14,16 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+        stage ('Paralle test') {
+            parallel {
+                stage ('Stage 1') {
+                    echo 'STAGE 1'
+                }
+                stage ('Stage 2') {
+                    echo 'STAGE 2'
+                }
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
