@@ -17,10 +17,14 @@ pipeline {
         stage ('Paralle test') {
             parallel {
                 stage ('Stage 1') {
-                    sh 'echo 'STAGE 1''
+                    steps { 
+                        sh 'echo 'STAGE 1''
+                    }
                 }
                 stage ('Stage 2') {
-                    sh 'echo 'STAGE 2''
+                    steps { 
+                        sh 'echo 'STAGE 2''
+                    }
                 }
             }
         }
