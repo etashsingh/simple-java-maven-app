@@ -53,7 +53,7 @@ pipeline {
                         }
                         stage ('parallel 2') {
                             steps {
-                                echo '$NAME'
+                                echo $env.NAME
                             }
                         }
                     }
