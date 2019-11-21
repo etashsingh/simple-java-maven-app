@@ -5,16 +5,62 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
+    environment {
+        name = 'ETASH'
+    }
     options {
-        timestamps()
+        quietPeriod(7)
     }
     stages {
+        stage ('INPUT') {
+            input {
+                message "Should we continue?"
+                ok "YES"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Etash', description: 'Who is the person?')
+                }
+            }
+            steps {
+                echo "Hello, ${PERSON}!!"
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage ('Paralle test') {
+        stage ('SEQUENTIAL TEST') {
+            stages {
+                stage ('sequential 1') {
+                    options {
+                        timestamps()
+                    }
+                    steps {
+                        echo 'SEQUENTIAL 1'
+                    }
+                }
+                stage ('sequential 2') {
+                    steps {
+                        echo 'SEQUENTIAL 2'
+                    }
+                }
+                stage {
+                    parallel {
+                        stage ('parallel 1') {
+                            steps {
+                                echo 'PARALLEL 1'
+                            }
+                        }
+                        stage ('parallel 2') {
+                            steps {
+                                echo '$name'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage ('Parallel test') {
             parallel {
                 stage ('Stage 1') {
                     steps { 
@@ -28,11 +74,6 @@ pipeline {
                 }
             }
         }
-        stage ('Extra') {
-            steps {
-                echo 'EXTRA'
-            }
-        }
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -40,6 +81,14 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                }
+                cleanup {
+                    emailext (
+                        subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+                        body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+                        to: "etash.singh@knoldus.com",
+                        from: "etashsingh29@gmail.com"
+                    )
                 }
             }
         }
