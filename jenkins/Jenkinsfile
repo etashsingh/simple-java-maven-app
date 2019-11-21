@@ -30,11 +30,11 @@ pipeline {
             }
         }
         stage ('SEQUENTIAL TEST') {
+            options {
+                timestamps()
+            }
             stages {
                 stage ('sequential 1') {
-                    options {
-                        timestamps()
-                    }
                     steps {
                         echo 'SEQUENTIAL 1'
                     }
