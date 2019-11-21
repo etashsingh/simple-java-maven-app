@@ -53,7 +53,7 @@ pipeline {
                         }
                         stage ('parallel 2') {
                             steps {
-                                sh "printenv NAME"
+                                sh "printenv"
                             }
                         }
                     }
