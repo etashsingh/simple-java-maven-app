@@ -12,7 +12,7 @@ pipeline {
         quietPeriod(7)
     }
     stages {
-        stage ('INPUT') {
+        /* stage ('INPUT') {
             input {
                 message "Should we continue?"
                 ok "YES"
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo "Hello, ${PERSON}!!"
             }
-        }
+        } */
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
