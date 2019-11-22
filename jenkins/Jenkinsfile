@@ -75,6 +75,9 @@ pipeline {
             }
         }
         stage('Test') {
+            agent {
+                label 'ubuntu'
+            }
             steps {
                 sh 'mvn test'
             }
