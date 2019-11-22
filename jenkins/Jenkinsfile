@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        NAME = 'ETASH'
+        NAME = 'ETASH SINGH'
     }
     options {
         quietPeriod(7)
