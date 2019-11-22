@@ -9,7 +9,7 @@ pipeline {
         NAME = 'ETASH SINGH'
     }
     options {
-        quietPeriod(7)
+        quietPeriod(5)
     }
     stages {
         /* stage ('INPUT') {
