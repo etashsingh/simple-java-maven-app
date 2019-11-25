@@ -2,6 +2,9 @@ pipeline {
     agent {
         node { label 'node1'}
     }
+    tools {
+            maven 'apache-maven-3.0.1'
+        }
     environment {
         NAME = 'ETASH SINGH'
     }
