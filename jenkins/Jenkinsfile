@@ -3,7 +3,7 @@ pipeline {
         node { label 'node1'}
     }
     tools {
-            maven 'maven-3.0.1'
+            maven 'maven'
         }
     environment {
         NAME = 'ETASH SINGH'
