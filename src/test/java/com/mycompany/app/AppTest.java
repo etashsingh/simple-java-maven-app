@@ -29,6 +29,12 @@ public class AppTest
         }
     }
 
+    @Test
+    public void test1() {
+        Integer number = 1;
+        assertEquals(1, 1);
+    }
+
 //    @Test
 //    public void testAppMain()
 //    {
